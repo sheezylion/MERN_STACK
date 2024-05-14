@@ -426,6 +426,10 @@ Click the allow access from anywhere in the Network access tab to the MongoDB da
 
 <img width="742" alt="34" src="https://github.com/sheezylion/MERN_STACK/assets/142250556/1cc1e39b-ebb2-4c66-8ed1-f82387ba23b8">
 
+Click on “Connect” select “Connect your application” and select Node.js driver from the Driver drop-down to get your connection string. Ensure to update <username>, <password>, <network-address> and <database> according to your setup.
+
+<img width="856" alt="Screenshot 2024-05-14 at 21 55 30" src="https://github.com/sheezylion/MERN_STACK/assets/142250556/d66abf5a-5b18-43e8-8eed-5c13ef9acd90">
+
 #### Create a MongoDB database and collection inside mLab
 1. Create a file in your Todo directory and name it .env, open the file
 
@@ -438,9 +442,11 @@ touch .env && vim .env
 ```
 DB = ‘mongodb+srv://<username>:<password>@<network-address>/<dbname>?retryWrites=true&w=majority’
 ```
-Ensure to update the <username>, <password>, <network-address> and <dbname> according to your setup, as seen below:
+Ensure to update the username, password, network-address and dbname according to your setup, as seen below:
 
-<img width="818" alt="35" src="https://github.com/sheezylion/MERN_STACK/assets/142250556/4b247023-cc9c-4085-9b8d-725cb84addc8">
+<img width="1168" alt="Screenshot 2024-05-14 at 22 09 26" src="https://github.com/sheezylion/MERN_STACK/assets/142250556/50b67e11-a949-43bf-957c-153aee832314">
+
+
 
 3. Next update the index.js to reflect the use of .env so that Node.js can connect to the database
 
@@ -499,9 +505,73 @@ Note: Using environment variables to store information is considered more secure
 node index.js
 ```
 
+If the setup is correct, you will receive the output shown in the screenshot below:
+
+<img width="1410" alt="Screenshot 2024-05-14 at 22 10 43" src="https://github.com/sheezylion/MERN_STACK/assets/142250556/b6c58ac2-ec05-4710-8e68-ad2d06a5a8d8">
+
+#### Testing Backend Code without Frontend using RESTful API
+
+So far, we have written part of the backend of our Todo app and configured our database, but no frontend UI yet. W ewould need Reactjs to achive that but we would need a way to test our code using RESTFUL Api, hence we would need to make use of some API development client to test our code.
+We will be using Postman for this project. First, we need to install Postman. Click on the link below to download and install Postman on your machine and create a free account.
+
+```
+https://www.postman.com/downloads/
+```
+To learn more about using Postman for CRUD Operations click on the link below:
+
+```
+https://www.youtube.com/watch?v=FjgYtQK_zLE
+```
+
+1. In Postman,  create a POST request to the API
+
+```
+http://<public-ip>:5000/api/todos
+```
+
+2. Set the header key to “Content-Type” and the value as “application/json”
+
+<img width="1273" alt="Screenshot 2024-05-14 at 22 40 47" src="https://github.com/sheezylion/MERN_STACK/assets/142250556/2b074574-7f4b-432b-a39d-00a9a6ca63ad">
+
+3. Create post request to the API with the below payload and click on "Send." This will output the id of the request shown in the bottom pane:
+
+<img width="1278" alt="Screenshot 2024-05-14 at 22 45 24" src="https://github.com/sheezylion/MERN_STACK/assets/142250556/c017fd9e-ab33-4ca2-8aab-46d352e6b3be">
 
 
+<img width="1194" alt="Screenshot 2024-05-14 at 22 49 42" src="https://github.com/sheezylion/MERN_STACK/assets/142250556/cf3bb284-12be-4137-b575-caeae02ab95e">
 
+
+<img width="1228" alt="Screenshot 2024-05-14 at 22 51 47" src="https://github.com/sheezylion/MERN_STACK/assets/142250556/5f7eb9ec-e6aa-42d6-bdf8-11f06c1c1107">
+
+<img width="1249" alt="Screenshot 2024-05-14 at 22 53 19" src="https://github.com/sheezylion/MERN_STACK/assets/142250556/ddeab0af-7c34-4924-ad83-ac9766bffe93">
+
+These records are now loaded into the MongoDB database
+
+<img width="1271" alt="Screenshot 2024-05-14 at 22 56 06" src="https://github.com/sheezylion/MERN_STACK/assets/142250556/943747cb-a050-4c2b-ac61-3364bc346d8b">
+
+4. Make a GET requests to the API
+
+This request retrieves all existing records from our To-Do application (backend requests these records from the database and sends us back as a response to GET request).
+
+<img width="1248" alt="Screenshot 2024-05-14 at 22 59 30" src="https://github.com/sheezylion/MERN_STACK/assets/142250556/b1860692-6c27-4cf5-a62c-8e7d0654449a">
+
+5. Create a DELETE requests to the API
+Note: Put the id reference of the list you want to delete
+
+<img width="1235" alt="Screenshot 2024-05-14 at 23 02 16" src="https://github.com/sheezylion/MERN_STACK/assets/142250556/24133654-4508-4795-bf9f-09135333c85e">
+
+6. Check database collection, noticed our todo list has reduced from 6 to 5:
+
+<img width="1093" alt="Screenshot 2024-05-14 at 23 04 25" src="https://github.com/sheezylion/MERN_STACK/assets/142250556/b6899117-6c08-428f-b7e3-12bf8d3c5c86">
+
+#### Creating Frontend
+To start out with the frontend of the Todo app, we will use the create-react-app command to scaffold our app.
+
+Change to the Todo app root directory and run the “create-react-app” command. This will create a new folder in the “Todo” directory called “client” where we will be adding all the react code.
+
+```
+npx create-react-app client
+```
 
 
 
