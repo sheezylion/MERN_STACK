@@ -101,6 +101,83 @@ I will connect to this using ssh client via port 22. This is done using the foll
 ssh -i keypair.pem ubuntu@100.26.35.141
 ```
 
+<img width="717" alt="10" src="https://github.com/sheezylion/MERN_STACK/assets/142250556/51028061-a5c9-4738-bb91-9564621e8e9f">
+
+#### Step 2: Backend Configuration
+Remember the first step in this project we set up an Ubuntu server on AWS. In order to proceed, we will connect to this server and configure the backend components. Then we will install NodeJS, npm, create a directory called “Todo” to store files for this project, and then use the npm init command to generate a new file in this “Todo” directory that contains information about the application and the dependencies that it needs to run.
+
+NPM is a package manager for Node, like apt for Ubuntu, it is used to install Node modules and packages and to manage dependency conflicts. But first we need to update and upgrade the ubuntu server:
+
+```
+sudo apt update
+sudo apt upgrade
+```
+
+To get the location of Node.js software from ubuntu repository, type the following command into your terminal:
+
+```
+curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash -
+```
+
+<img width="977" alt="Screenshot 2024-05-14 at 16 58 52" src="https://github.com/sheezylion/MERN_STACK/assets/142250556/07d689e0-9ae3-4a18-ba78-5308f7ba627d">
+
+#### Install Node.js on the server
+Install node.js with the command below
+
+```
+sudo apt-get install -y nodejs
+```
+
+<img width="816" alt="12" src="https://github.com/sheezylion/MERN_STACK/assets/142250556/0e46b645-3246-4c2a-8fd2-44980304d69e">
+
+Note: By default the comman above has installed both node.js and npm. NPM is a package manager for node, same as how apt is a package manager for ubuntu.
+
+We can verify the node installation with the comman below:
+
+```
+node -v
+```
+<img width="296" alt="13" src="https://github.com/sheezylion/MERN_STACK/assets/142250556/2559054d-f852-46f2-af6f-2b89284a40e2">
+We can also verify npm installation with the comman below:
+
+```
+npm -v
+```
+<img width="316" alt="14" src="https://github.com/sheezylion/MERN_STACK/assets/142250556/4561f530-e93e-4e4d-addf-31960162c491">
+
+#### Application code setup
+
+We would create a new directory for our TO-DO project using the mkdir command 
+
+```
+mkdir Todo
+```
+Run the ls command below to verify if the TOdo directory has been created
+
+```
+ls
+```
+
+<img width="280" alt="15" src="https://github.com/sheezylion/MERN_STACK/assets/142250556/a698ef88-99b3-499e-b170-0b509af7e13a">
+
+Note: To see a well detailed information of the Todo directory created you can use addition comman with ls. example ls -lih. You can also type "man ls". Man means manual which is used to view more details on how to use the ls command.
+
+Next, change your directory to the newly created one using the cd command below:
+
+```
+cd Todo
+```
+
+<img width="380" alt="16" src="https://github.com/sheezylion/MERN_STACK/assets/142250556/6f1c5834-c32d-43f9-b070-44f9405c7efb">
+
+
+
+
+
+
+
+
+
 
 
 
