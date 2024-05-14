@@ -1,4 +1,4 @@
-# MERN WEB STACK DOCUMENTATION
+# MERN WEB STACK IMPLEMENTATION IN AWS
 
 ![MERN-Stack](https://github.com/sheezylion/MERN_STACK/assets/142250556/0abede56-e038-4b3b-bc1e-ea87adf9d57e)
 
@@ -16,3 +16,16 @@ It is a contraction for four different technologies as mentioned below:
 - E - ExpressJS
 - R - ReactJS
 - N - NodeJS
+
+## MERN Stack Components
+There are four components of the MERN stack. Let’s discuss each of them one by one. 
+
+- The first component is MongoDB, which is a NoSQL database management system. 
+- The second MERN stack component is ExpressJS. It is a backend web application framework for NodeJS.
+- The third component is ReactJS, a JavaScript library for developing UIs based on UI components. 
+- The final component of the MERN stack is NodeJS. It is a JS runtime environment, i.e., it enables running JavaScript code outside the browser.
+
+### Prerequisites
+Have an AWS account set up and have an Admin user created with full admin permissions.
+
+#### Step 1: Launch a Virtual Server with Ubuntu Server OS
