@@ -29,3 +29,9 @@ There are four components of the MERN stack. Let’s discuss each of them one by
 Have an AWS account set up and have an Admin user created with full admin permissions.
 
 #### Step 1: Launch a Virtual Server with Ubuntu Server OS
+
+##### Sign in to the AWS Management Console
+To get started, sign in to the AWS Management Console using your AWS account credentials. If you don’t have an AWS account, you can create one easily by following the instructions on the AWS website.
+
+##### Open the EC2 Console Once you are signed in to the AWS Management Console
+Search for “EC2” in the services search bar and click on “EC2” from the search results. This will open the EC2 console, where you can manage your instances.
