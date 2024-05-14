@@ -170,6 +170,45 @@ cd Todo
 
 <img width="380" alt="16" src="https://github.com/sheezylion/MERN_STACK/assets/142250556/6f1c5834-c32d-43f9-b070-44f9405c7efb">
 
+Next, we will use the npm init command to initialize our project, where a new file package.json will be created. The package.json  contains information about our apllication and its dependencies that it needs to run.
+
+```
+npm init
+```
+Note: Follow the prompts after running the command. You can press enter several times to accept default values,
+then accept to write out the package.json file by typing yes just like the image below:
+
+<img width="814" alt="17" src="https://github.com/sheezylion/MERN_STACK/assets/142250556/76cb6130-ef4d-47e0-9c5f-d6e24a080890">
+
+Run the command ls to confirm if you have the package.json file created in your todo directory
+
+```
+ls
+```
+<img width="469" alt="18" src="https://github.com/sheezylion/MERN_STACK/assets/142250556/48d08e82-a05c-417d-8e34-07bea8264100">
+
+Next we will install expressjs and create the routes directory
+
+#### Install expressJs 
+ExpressJs is a framework for Node.js. Hence it simplifies development and abstracts a lot of low level details. For example, express helps to define routes of your application based on HTTP methods and URLs.
+
+1. Install express by using npm command:
+
+```
+npm install express
+```
+<img width="479" alt="19" src="https://github.com/sheezylion/MERN_STACK/assets/142250556/496e9a6b-101a-4216-b391-3a55031a2523">
+
+2. Next create a file named "index.js" using the command below. We used 2 commands which is touch and ls. Touch is used to create a file and ls is used to list out the files created. The && command is used to input two commands at the same time
+
+```
+touch index.js && ls
+```
+As showmn in the image below out index.js file is created
+
+<img width="435" alt="20" src="https://github.com/sheezylion/MERN_STACK/assets/142250556/974101a9-ce4c-4d29-be72-cc8b6b5612bb">
+
+
 
 
 
