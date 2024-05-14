@@ -204,9 +204,226 @@ npm install express
 ```
 touch index.js && ls
 ```
-As showmn in the image below out index.js file is created
+As shown in the image below out index.js file is created
 
 <img width="435" alt="20" src="https://github.com/sheezylion/MERN_STACK/assets/142250556/974101a9-ce4c-4d29-be72-cc8b6b5612bb">
+
+3. Install dotenv module with the command below:
+
+```
+npm install dotenv
+```
+<img width="480" alt="21" src="https://github.com/sheezylion/MERN_STACK/assets/142250556/8cbb0b9c-d116-46da-822a-c89aed9d1d83">
+
+
+4. Open index.js file using any text editor of your choice, in our case we would use the vim editor:
+
+```
+vim index.js
+```
+
+Type the code below into it
+
+```
+const express = require('express');
+require('dotenv').config();
+
+const app = express();
+
+const port = process.env.PORT || 5000;
+
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
+
+app.use((req, res, next) => {
+  res.send('Welcome to Express');
+});
+
+app.listen(port, () => {
+  console.log(`Server running on port ${port}`);
+});
+```
+The image below shows how the code you paste looks like in vim editor
+
+<img width="757" alt="22" src="https://github.com/sheezylion/MERN_STACK/assets/142250556/578f9aec-01ff-4f54-91fe-e8c1c412d754">
+
+Note: Port 5000 have been specified to be used in the code. This will be required later on the browser.
+
+5. Start the server to see if it works. Open your terminal in the same directory as your index.js file. Run the command below:
+
+```
+node index.js
+```
+
+Server is now running on port 5000 in the Terminal, as seen below: 
+
+<img width="437" alt="23" src="https://github.com/sheezylion/MERN_STACK/assets/142250556/de278d94-a9e0-49f7-85f8-d9c64577579e">
+
+To open this server in our local browser, we need to do some settings in our EC2 instance security group by editing our inbound rules to open port 5000 as shown below:
+
+<img width="1618" alt="24" src="https://github.com/sheezylion/MERN_STACK/assets/142250556/69e13d4e-6284-4416-bef1-2cebdab69b44">
+
+6. Access the server with the public IP followed by the port
+
+```
+100.26.35.141:5000
+```
+<img width="682" alt="25" src="https://github.com/sheezylion/MERN_STACK/assets/142250556/80b4924a-54a6-4eb6-9c71-759c42c107b9">
+
+### Routes
+There are three actions that the ToDo application needs to be able to do:
+
+- Create a new task
+- Display list of all task
+- Delete a completed task
+
+Each task was associated with some particular endpoint and used different standard HTTP request methods: POST, GET, DELETE.
+
+For each task, routes were created which defined various endpoints that the ToDo app depends on.
+
+1. Create a folder routes, cd into the routes directory and create a file api.js inside the routes directory. We would use one command to achieve this using the && syntax:
+
+```
+mkdir routes && cd routes && touch api.js
+```
+<img width="609" alt="26" src="https://github.com/sheezylion/MERN_STACK/assets/142250556/bbfae540-b809-43e8-95ad-96d6f8574685">
+
+2. Open the api.js file using vim editor:
+
+```
+vim api.js
+```
+
+3. Copy the comman below inside api.js
+
+```
+const express = require('express');
+const router = express.Router();
+
+router.get('/todos', (req, res, next) => {
+
+});
+
+router.post('/todos', (req, res, next) => {
+
+});
+
+router.delete('/todos/:id', (req, res, next) => {
+
+});
+
+module.exports = router;
+```
+Next we would create models directory
+
+#### Models
+Models are defined using the schema interface. The schema allows you to define the fields stored in each document along with their validation requirements and default values. In essence, the schema is a blueprint of how the database will be constructed. In addition, you can define static and instance helper methods to make it easier to work with your data types, and also virtual properties that you can use like any other field, but which aren’t stored in the database.
+
+To create a schema and a model, install Mongoose which is a Node package that makes working with MongoDB easier.
+
+Change the directory back to Todo folder using cd .. command
+
+```
+cd ..
+```
+
+<img width="380" alt="27" src="https://github.com/sheezylion/MERN_STACK/assets/142250556/659bb2b9-a1f2-40bb-8d84-4479b50dd419">
+
+1. Now install mongoose, using npm command:
+
+```
+npm install mongoose
+```
+
+<img width="447" alt="28" src="https://github.com/sheezylion/MERN_STACK/assets/142250556/d8dbba42-8d89-485e-a193-3c4cadb6ef19">
+
+2. Create a new folder in your root directory and name it models. Cd inside the models directory and create a file, name it todo.js with the following code in it:
+
+```
+mkdir models && cd models && touch todo.js
+```
+
+<img width="596" alt="29" src="https://github.com/sheezylion/MERN_STACK/assets/142250556/add56f00-19f1-4f45-8d88-2e8d51945f44">
+
+3. Open the newly created file todo.js using vim text editor and pasted the following command
+
+```
+vim todo.js
+```
+
+```
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
+
+// Create schema for todo
+const TodoSchema = new Schema({
+  action: {
+    type: String,
+    required: [true, 'The todo text field is required']
+  }
+});
+
+// Create model for todo
+const Todo = mongoose.model('todo', TodoSchema);
+
+module.exports = Todo;
+```
+<img width="499" alt="30" src="https://github.com/sheezylion/MERN_STACK/assets/142250556/609c19dd-acbd-457f-89d7-b9481bd96461">
+
+Now, we need to update our routes to make use of the new model. In routes directory open api.js using vim and update with the following command. 
+
+```
+const express = require('express');
+const router = express.Router();
+const Todo = require('../models/todo');
+
+router.get('/todos', (req, res, next) => {
+  // This will return all the data, exposing only the id and action field to the client
+  Todo.find({}, 'action')
+    .then(data => res.json(data))
+    .catch(next);
+});
+
+router.post('/todos', (req, res, next) => {
+  if (req.body.action) {
+    Todo.create(req.body)
+      .then(data => res.json(data))
+      .catch(next);
+  } else {
+    res.json({
+      error: "The input field is empty"
+    });
+  }
+});
+
+router.delete('/todos/:id', (req, res, next) => {
+  Todo.findOneAndDelete({"_id": req.params.id})
+    .then(data => res.json(data))
+    .catch(next);
+});
+
+module.exports = router;
+```
+<img width="736" alt="31" src="https://github.com/sheezylion/MERN_STACK/assets/142250556/764ef949-8024-4d2e-b378-18144a073240">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
