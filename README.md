@@ -409,6 +409,95 @@ module.exports = router;
 ```
 <img width="736" alt="31" src="https://github.com/sheezylion/MERN_STACK/assets/142250556/764ef949-8024-4d2e-b378-18144a073240">
 
+#### MongoDB Database
+We need a database where we would store data, we will make use of mlab for this. mLab provides MongoDB database as a service solution (DBaaS). Moving forward, we would sign up for a shared cluster free account, using the link below;
+
+```
+https://www.mongodb.com/products/try-free/platform/atlas-signup-from-mlab
+```
+
+<img width="964" alt="32" src="https://github.com/sheezylion/MERN_STACK/assets/142250556/f842726c-d3ac-464e-be9b-475da855dbb7">
+
+Follow the signup process, select AWS as service provider and choose a region near you.
+
+<img width="1265" alt="33" src="https://github.com/sheezylion/MERN_STACK/assets/142250556/3512b65d-93aa-424d-bf1b-4588f7908041">
+
+Click the allow access from anywhere in the Network access tab to the MongoDB database. (Not secure but it is ideal for testing).
+
+<img width="742" alt="34" src="https://github.com/sheezylion/MERN_STACK/assets/142250556/1cc1e39b-ebb2-4c66-8ed1-f82387ba23b8">
+
+#### Create a MongoDB database and collection inside mLab
+1. Create a file in your Todo directory and name it .env, open the file
+
+```
+touch .env && vim .env
+```
+
+2. Add the connection string to access the database, just as below:
+
+```
+DB = ‘mongodb+srv://<username>:<password>@<network-address>/<dbname>?retryWrites=true&w=majority’
+```
+Ensure to update the <username>, <password>, <network-address> and <dbname> according to your setup, as seen below:
+
+<img width="818" alt="35" src="https://github.com/sheezylion/MERN_STACK/assets/142250556/4b247023-cc9c-4085-9b8d-725cb84addc8">
+
+3. Next update the index.js to reflect the use of .env so that Node.js can connect to the database
+
+```
+vim index.js
+```
+
+Delete existing content in the file, and update it with the entire code below:
+
+```
+const express = require('express');
+const bodyParser = require('body-parser');
+const mongoose = require('mongoose');
+const routes = require('./routes/api');
+const path = require('path');
+require('dotenv').config();
+
+const app = express();
+
+const port = process.env.PORT || 5000;
+
+// Connect to the database
+mongoose.connect(process.env.DB, { useNewUrlParser: true, useUnifiedTopology: true })
+  .then(() => console.log(`Database connected successfully`))
+  .catch(err => console.log(err));
+
+// Since mongoose promise is deprecated, we override it with Node's promise
+mongoose.Promise = global.Promise;
+
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
+
+app.use(bodyParser.json());
+
+app.use('/api', routes);
+
+app.use((err, req, res, next) => {
+  console.log(err);
+  next();
+});
+
+app.listen(port, () => {
+  console.log(`Server running on port ${port}`);
+});
+```
+<img width="764" alt="36" src="https://github.com/sheezylion/MERN_STACK/assets/142250556/4d77360a-0444-46d4-ad93-a27cd2af3356">
+
+Note: Using environment variables to store information is considered more secure and best practice to separate configuration and secret data from the application, instead of writing connection strings directly inside the index.js application file.
+
+4. Start your server using the command below:
+
+```
+node index.js
+```
 
 
 
