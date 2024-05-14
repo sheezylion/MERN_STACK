@@ -62,5 +62,51 @@ In this case, you can select “t2.micro” as the instance type. The “t2.micr
 
 <img width="739" alt="5" src="https://github.com/sheezylion/MERN_STACK/assets/142250556/e0e0e858-ec6e-47d1-88b9-3af095c53f93">
 
+##### Create a Key Pair
+To securely access your EC2 instance from your system, you need to create a key pair. A key pair consists of a public key that AWS stores and a private key that you download to your local machine. The private key is used to authenticate and establish a secure connection with your EC2 instance.
+
+You have the option to select an existing key pair if you already have one, or you can create a new key pair by clicking on the “Create new key pair” button. I already have an existing key pair created
+
+<img width="730" alt="6" src="https://github.com/sheezylion/MERN_STACK/assets/142250556/9606d1f5-f19d-42f9-9acf-4e5965fb06d5">
+
+##### Configure Instance Details, Add Storage, and Configure Security Groups
+In this step, you can configure various settings for your EC2 instance. Adjust these settings based on your specific requirements. You have the flexibility to update these details even after launching the instance.
+
+- Instance Details: Configure settings such as the number of instances to launch and network settings. You can specify the desired number of instances, choose the VPC (Virtual Private Cloud) network, and assign an IAM (Identity and Access Management) role if needed. You can also enable detailed monitoring for enhanced metrics on your instance’s performance.
+- Storage: Specify the amount and type of storage to attach to your instance. AWS provides Elastic Block Store (EBS) volumes for persistent storage. Consider factors such as storage size, performance requirements, and encryption options. You can configure storage options according to your needs.
+
+Remember, these configuration details can be updated later after launching the instance. You can leave them as they are for now and make changes as necessary in the future.
+
+On the right side of the EC2 instance launch page, you will find the summary details section. This section provides a consolidated view of the configuration settings you have chosen for your instance. It allows you to review and verify the settings before launching the instance.
+
+<img width="730" alt="7" src="https://github.com/sheezylion/MERN_STACK/assets/142250556/814aad15-ebe9-4c69-98e2-1ec01d4f9ece">
+
+##### Review and Launch
+Before launching the instance, review the configuration details to ensure everything is set up correctly. Double-check the instance type, storage options, security groups, and any additional settings you have configured. If everything looks good, click on the “Launch Instance” button.
+
+After launching the instance, you will be redirected to a page displaying a success dialogue box. To view the list of instances, click on the instance ID. In mycase, the instance ID is “i-0b631b7f55cae146a” as shown below.
+
+<img width="797" alt="8" src="https://github.com/sheezylion/MERN_STACK/assets/142250556/19c16060-e8b2-4dfa-a234-2918e449791e">
+
+Clicking on the instance ID will take you to the EC2 Instances page, where you can see the details and manage your instances effectively.
+
+<img width="1391" alt="9" src="https://github.com/sheezylion/MERN_STACK/assets/142250556/5bb90a33-9005-4b80-abb7-3a2b65c0a4c7">
+
+This page provides comprehensive information about our instances, including status, instance type, public IP address, and other relevant details. 
+
+##### Connect to Instance
+I will connect to this using ssh client via port 22. This is done using the following block of code:
+
+```
+ssh -i keypair.pem ubuntu@100.26.35.141
+```
+
+
+
+
+
+
+
+
 
 
