@@ -573,6 +573,459 @@ Change to the Todo app root directory and run the “create-react-app” command
 npx create-react-app client
 ```
 
+#### Running a react app
+We need to install the following dependencies before running the react app
+
+- Install “concurrently”. This can be used to run more than one command simultaneously from the same terminal window.
+
+```
+npm install concurrently --save-dev
+```
+<img width="634" alt="Screenshot 2024-05-15 at 16 50 47" src="https://github.com/sheezylion/MERN_STACK/assets/142250556/0f59b595-f4c1-4817-817c-de571d8170bf">
+
+
+- Install “nodemon”. It is used to run and monitor the server, it restarts the server automatically if there is a change in the server code.
+
+```
+npm install nodemon --save-dev
+```
+<img width="530" alt="Screenshot 2024-05-15 at 16 52 02" src="https://github.com/sheezylion/MERN_STACK/assets/142250556/040a8d23-8a1e-4ccd-8782-9e7f864d5627">
+
+- Open the package.json file in the “Todo” directory and replace the script section with the block of code below:
+
+```
+"scripts": {
+  "start": "node index.js",
+  "start-watch": "nodemon index.js",
+  "dev": "concurrently \"npm run start-watch\" \"cd client && npm start\""
+}
+```
+
+<img width="580" alt="Screenshot 2024-05-15 at 16 57 12" src="https://github.com/sheezylion/MERN_STACK/assets/142250556/e5ba8ae0-ae86-414a-8b24-e6a470307f12">
+
+#### Configure Proxy in package.json
+- Change directory to “client”
+
+```
+cd client
+```
+
+- Open the package.json file
+
+```
+vim package.json
+```
+
+<img width="642" alt="Screenshot 2024-05-15 at 17 00 29" src="https://github.com/sheezylion/MERN_STACK/assets/142250556/ef46c51b-67a6-4abc-b3f2-08c2c3d4cd1b">
+
+- Add the key value pair in the package.json file
+
+```
+"proxy": "http://localhost:5000"
+```
+![Screenshot 2024-05-15 at 17 04 39](https://github.com/sheezylion/MERN_STACK/assets/142250556/e1ac0638-3e55-449e-ae52-e5e3d997ef2d)
+
+
+The whole purpose of adding the proxy configuration above is to make it possible to access the application directly from the browser by simply calling the server url like http://locathost:5000 rather than always including the entire path like http://localhost:5000/api/todos
+
+Ensure you are inside the Todo directory, and simply run this command:
+
+```
+npm run dev
+```
+
+<img width="1483" alt="Screenshot 2024-05-15 at 17 08 46" src="https://github.com/sheezylion/MERN_STACK/assets/142250556/06b164b5-1156-46c6-aaf5-29da6a982f2b">
+
+The app opened and started running on localhost:3000
+Note: In order to be able to access the application from the Internet, you have to open TCP port 3000 on EC2 by adding a new security group rule.
+
+<img width="1333" alt="Screenshot 2024-05-15 at 17 10 29" src="https://github.com/sheezylion/MERN_STACK/assets/142250556/96df1896-7584-4342-a30c-cd931acbcc62">
+
+#### Creating your React Components
+One benefit of using React is that it uses reusable components and makes code modular. There will be two stateful components and one stateless component in our Todo app.
+
+Run the following command from your Todo directory:
+
+```
+cd client
+```
+
+Move to the “src” directory
+
+```
+cd src
+```
+
+Inside your src folder, create another folder called “components”
+
+```
+mkdir components
+```
+
+Move into the components directory
+
+```
+cd components
+```
+<img width="537" alt="Screenshot 2024-05-15 at 17 14 44" src="https://github.com/sheezylion/MERN_STACK/assets/142250556/bd59d089-cf83-4f9b-8720-afddb3d60e0e">
+
+create three new files inside component directory
+
+```
+touch Input.js ListTodo.js Todo.js
+```
+<img width="738" alt="Screenshot 2024-05-15 at 17 16 00" src="https://github.com/sheezylion/MERN_STACK/assets/142250556/b667c9e8-fcc9-459d-a939-d2b5eb52562a">
+
+- Open Input.js file
+
+```
+vim Input.js
+```
+
+Paste in the following codes:
+
+```
+import React, { Component } from 'react';
+import axios from 'axios';
+
+class Input extends Component {
+  state = {
+    action: ""
+  }
+
+  handleChange = (event) => {
+    this.setState({ action: event.target.value });
+  }
+
+  addTodo = () => {
+    const task = { action: this.state.action };
+
+    if (task.action && task.action.length > 0) {
+      axios.post('/api/todos', task)
+        .then(res => {
+          if (res.data) {
+            this.props.getTodos();
+            this.setState({ action: "" });
+          }
+        })
+        .catch(err => console.log(err));
+    } else {
+      console.log('Input field required');
+    }
+  }
+
+  render() {
+    let { action } = this.state;
+    return (
+      <div>
+        <input type="text" onChange={this.handleChange} value={action} />
+        <button onClick={this.addTodo}>add todo</button>
+      </div>
+    );
+  }
+}
+
+export default Input;
+```
+<img width="762" alt="Screenshot 2024-05-15 at 17 17 28" src="https://github.com/sheezylion/MERN_STACK/assets/142250556/990c4f2a-5141-446d-aa8c-b56ecc5f3e95">
+
+- To use Axios, a Promise-based HTTP client for the browser and node.js, cd into your client and execute yarn add axios or npm install axios from your terminal.
+
+```
+cd ../..
+```
+
+- Install Axios
+
+```
+npm install axios
+```
+
+<img width="523" alt="Screenshot 2024-05-15 at 17 20 32" src="https://github.com/sheezylion/MERN_STACK/assets/142250556/843d178f-b72b-48f6-bbaa-d9a5a62d7bd5">
+
+
+- Go to components directory and edit the ListTodo.js file to add the below block of code:
+
+```
+cd src/components
+```
+
+- Next open the ListTodo.js
+
+```
+vim ListTodo.js
+```
+
+Copy and paste the following code:
+
+```
+import React from 'react';
+
+const ListTodo = ({ todos, deleteTodo }) => {
+  return (
+    <ul>
+      {
+        todos && todos.length > 0 ? (
+          todos.map(todo => {
+            return (
+              <li key={todo._id} onClick={() => deleteTodo(todo._id)}>
+                {todo.action}
+              </li>
+            );
+          })
+        ) : (
+          <li>No todo(s) left</li>
+        )
+      }
+    </ul>
+  );
+}
+
+export default ListTodo;
+```
+<img width="661" alt="Screenshot 2024-05-15 at 17 23 24" src="https://github.com/sheezylion/MERN_STACK/assets/142250556/83807ad4-1c37-4678-a89b-787a0c01da54">
+
+- Edit the Todo.js file using vim editor and copy the code below:
+
+```
+vim Todo.js
+```
+
+```
+import React, { Component } from 'react';
+import axios from 'axios';
+
+import Input from './Input';
+import ListTodo from './ListTodo';
+
+class Todo extends Component {
+  state = {
+    todos: []
+  }
+
+  componentDidMount() {
+    this.getTodos();
+  }
+
+  getTodos = () => {
+    axios.get('/api/todos')
+      .then(res => {
+        if (res.data) {
+          this.setState({
+            todos: res.data
+          });
+        }
+      })
+      .catch(err => console.log(err));
+  }
+
+  deleteTodo = (id) => {
+    axios.delete(`/api/todos/${id}`)
+      .then(res => {
+        if (res.data) {
+          this.getTodos();
+        }
+      })
+      .catch(err => console.log(err));
+  }
+
+  render() {
+    let { todos } = this.state;
+    return (
+      <div>
+        <h1>My Todo(s)</h1>
+        <Input getTodos={this.getTodos} />
+        <ListTodo todos={todos} deleteTodo={this.deleteTodo} />
+      </div>
+    );
+  }
+}
+
+export default Todo;
+```
+<img width="558" alt="Screenshot 2024-05-15 at 17 25 56" src="https://github.com/sheezylion/MERN_STACK/assets/142250556/54fdfa80-4ecf-4110-8438-f5d6f2f1bf49">
+
+We will make little adjustment to the React code to delete the logo and adjust the App.js file# Change to src directory
+
+```
+cd ..
+```
+
+Inside the src folder run:
+
+```
+vim App.js
+```
+Copy and paste the following code
+
+```
+import React from 'react';
+import Todo from './components/Todo';
+import './App.css';
+
+const App = () => {
+  return (
+    <div className="App">
+      <Todo />
+    </div>
+  );
+}
+
+export default App;
+```
+
+
+<img width="429" alt="Screenshot 2024-05-15 at 17 41 24" src="https://github.com/sheezylion/MERN_STACK/assets/142250556/c1d3dced-d999-4666-a519-4f3c313adf10">
+
+In the src directory, open the App.css
+
+```
+vim App.css
+```
+
+Paste the following code:
+
+```
+.App {
+text-align: center;
+font-size: calc(10px + 2vmin);
+width: 60%;
+margin-left: auto;
+margin-right: auto;
+}
+
+input {
+height: 40px;
+width: 50%;
+border: none;
+border-bottom: 2px #101113 solid;
+background: none;
+font-size: 1.5rem;
+color: #787a80;
+}
+
+input:focus {
+outline: none;
+}
+
+button {
+width: 25%;
+height: 45px;
+border: none;
+margin-left: 10px;
+font-size: 25px;
+background: #101113;
+border-radius: 5px;
+color: #787a80;
+cursor: pointer;
+}
+
+button:focus {
+outline: none;
+}
+
+ul {
+list-style: none;
+text-align: left;
+padding: 15px;
+background: #171a1f;
+border-radius: 5px;
+}
+
+li {
+padding: 15px;
+font-size: 1.5rem;
+margin-bottom: 15px;
+background: #282c34;
+border-radius: 5px;
+overflow-wrap: break-word;
+cursor: pointer;
+}
+
+@media only screen and (min-width: 300px) {
+.App {
+width: 80%;
+}
+
+input {
+width: 100%
+}
+
+button {
+width: 100%;
+margin-top: 15px;
+margin-left: 0;
+}
+}
+
+@media only screen and (min-width: 640px) {
+.App {
+width: 60%;
+}
+
+input {
+width: 50%;
+}
+
+button {
+width: 30%;
+margin-left: 10px;
+margin-top: 0;
+}
+}
+```
+<img width="498" alt="Screenshot 2024-05-15 at 17 47 37" src="https://github.com/sheezylion/MERN_STACK/assets/142250556/6da526b2-de49-45dc-9422-e6708eea541f">
+
+- In the src directory open the index.css and copy and paste the below block of code into this file:
+
+```
+vim index.css
+```
+
+```
+body {
+  margin: 0;
+  padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  box-sizing: border-box;
+  background-color: #282c34;
+  color: #787a80;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
+}
+```
+<img width="1170" alt="Screenshot 2024-05-15 at 17 50 04" src="https://github.com/sheezylion/MERN_STACK/assets/142250556/a7e23918-b153-467e-98e3-a19c7768bd9a">
+
+- Change to the Todo directory
+
+```
+cd ../..
+```
+
+- Next run the npm run dev command to start the app.
+
+```
+npm run dev
+```
+
+<img width="1441" alt="Screenshot 2024-05-15 at 17 52 54" src="https://github.com/sheezylion/MERN_STACK/assets/142250556/073f7281-2b68-4d6c-a60d-6d6b3c79f935">
+
+Assuming no errors occurred throughout the process of storing these data, our To-Do app should be ready and fully functional with the capabilities to create a task, delete a task, and see all of your tasks.
+
+Below is the view of our Todo app
+
+
+<img width="1441" alt="Screenshot 2024-05-15 at 17 52 54" src="https://github.com/sheezylion/MERN_STACK/assets/142250556/180875ad-eb93-4613-8770-8f34d7922d11">
+
+#### Conclusion
+We have successfully written a MERN stack composed of an ExpressJS backend, and a MongoDB database that communicates with a React.js frontend.
+
+
+
 
 
 
