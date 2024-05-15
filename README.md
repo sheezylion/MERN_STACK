@@ -1012,14 +1012,16 @@ cd ../..
 npm run dev
 ```
 
-<img width="1441" alt="Screenshot 2024-05-15 at 17 52 54" src="https://github.com/sheezylion/MERN_STACK/assets/142250556/073f7281-2b68-4d6c-a60d-6d6b3c79f935">
-
 Assuming no errors occurred throughout the process of storing these data, our To-Do app should be ready and fully functional with the capabilities to create a task, delete a task, and see all of your tasks.
+
+<img width="1441" alt="Screenshot 2024-05-15 at 17 52 54" src="https://github.com/sheezylion/MERN_STACK/assets/142250556/324c8aba-5c6c-428c-916b-df9d906e0b7b">
 
 Below is the view of our Todo app
 
+<img width="1548" alt="Screenshot 2024-05-15 at 18 00 11" src="https://github.com/sheezylion/MERN_STACK/assets/142250556/6a59992d-4ebb-4980-984f-5e72a4e64981">
 
-<img width="1441" alt="Screenshot 2024-05-15 at 17 52 54" src="https://github.com/sheezylion/MERN_STACK/assets/142250556/180875ad-eb93-4613-8770-8f34d7922d11">
+
+
 
 #### Conclusion
 We have successfully written a MERN stack composed of an ExpressJS backend, and a MongoDB database that communicates with a React.js frontend.
