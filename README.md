@@ -130,19 +130,21 @@ sudo apt-get install -y nodejs
 
 <img width="816" alt="12" src="https://github.com/sheezylion/MERN_STACK/assets/142250556/0e46b645-3246-4c2a-8fd2-44980304d69e">
 
-Note: By default the comman above has installed both node.js and npm. NPM is a package manager for node, same as how apt is a package manager for ubuntu.
+Note: By default the command above has installed both node.js and npm. NPM is a package manager for node, same as how apt is a package manager for ubuntu.
 
 We can verify the node installation with the comman below:
 
 ```
 node -v
 ```
+
 <img width="296" alt="13" src="https://github.com/sheezylion/MERN_STACK/assets/142250556/2559054d-f852-46f2-af6f-2b89284a40e2">
-We can also verify npm installation with the comman below:
+We can also verify npm installation with the command below:
 
 ```
 npm -v
 ```
+
 <img width="316" alt="14" src="https://github.com/sheezylion/MERN_STACK/assets/142250556/4561f530-e93e-4e4d-addf-31960162c491">
 
 #### Application code setup
